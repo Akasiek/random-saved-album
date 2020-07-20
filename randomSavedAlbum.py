@@ -3,8 +3,9 @@ from time import sleep
 import tekore as tk
 
 # Authorization
-conf = tk.config_from_file('conf.txt')
-token = tk.prompt_for_user_token(*conf, scope=tk.scope.user_library_read + tk.scope.user_modify_playback_state)
+conf = tk.config_from_file('conf1.txt')
+token = tk.prompt_for_user_token(
+    *conf, scope=tk.scope.user_library_read + tk.scope.user_modify_playback_state)
 sp = tk.Spotify(token)
 
 # Getting the number of all saved albums
@@ -22,11 +23,12 @@ else:
         albums[x] = sp.saved_albums(limit=1, offset=x).items[0].album
         sleep(0.02)
 
-    #Getting random number and selecting the album by this number
-    random_x = random.randint(1,albums_number)
+    # Getting random number and selecting the album by this number
+    random_x = random.randint(1, albums_number)
     selected_album = albums[random_x]
 
-    #Playing the selected album
-    print(f"Album has been selected. Now playing '{selected_album.name}' by {selected_album.artists[0].name} on Spotify")
+    # Playing the selected album
+    print(
+        f"Album has been selected. Now playing '{selected_album.name}' by {selected_album.artists[0].name} on Spotify")
     selected_album_uri = tk.to_uri('album', selected_album.id)
     sp.playback_start_context(selected_album_uri)
