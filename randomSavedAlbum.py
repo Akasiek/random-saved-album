@@ -3,7 +3,7 @@ from time import sleep
 import tekore as tk
 
 # Authorization
-conf = tk.config_from_file('conf1.txt')
+conf = tk.config_from_file('conf.txt')
 token = tk.prompt_for_user_token(
     *conf, scope=tk.scope.user_library_read + tk.scope.user_modify_playback_state)
 sp = tk.Spotify(token)
