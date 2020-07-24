@@ -3,7 +3,7 @@ from time import sleep
 import tekore as tk
 
 # Authorization
-conf = tk.config_from_file('conf.txt')
+conf = tk.config_from_file('conf1.txt')
 token = tk.prompt_for_user_token(
     *conf, scope=tk.scope.user_library_read + tk.scope.user_modify_playback_state)
 spotify = tk.Spotify(token)
@@ -17,6 +17,7 @@ if albums_number == 0:
     print("You don't have any saved albums. Aborting!")
     sleep(2)
 else:
+    print(f"You have a total of {albums_number} saved albums. Now selecting one randomly")
     # Getting random number and selecting the album
     random_number = random.randint(0, albums_number-1)
     selected_album = spotify.saved_albums(
@@ -28,3 +29,5 @@ else:
 
     selected_album_uri = tk.to_uri('album', selected_album.id)
     spotify.playback_start_context(selected_album_uri)
+    
+    sleep(3)
