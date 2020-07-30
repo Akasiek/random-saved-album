@@ -1,6 +1,41 @@
 import random
 from time import sleep
 import tekore as tk
+from colorTerminal import ColorTerminal as ct
+
+
+def choosingRandomAlbum(albums_number):
+    # Selecting random number and then album
+    random_number = random.randint(0, albums_number-1)
+    selected_album = spotify.saved_albums(
+        limit=1, offset=random_number).items[0].album
+
+    # Loop for
+    while True:
+        answer = input(
+            f'''
+Album has been selected!
+Do you want to play {ct.prGreen}"{selected_album.name}"{ct.endc} by {ct.prGreen}{selected_album.artists[0].name}{ct.endc}? (Y/N)
+If you want to abort type {ct.prRed}"quit"{ct.endc}
+''')
+        answer = answer.lower()
+
+        if answer == "y":
+            print(
+                f'\nNow playing {ct.prGreen}"{selected_album.name}"{ct.endc} by {ct.prGreen}{selected_album.artists[0].name}{ct.endc} on Spotify?')
+
+            spotify.playback_start_context(
+                tk.to_uri('album', selected_album.id))
+            exit()
+        elif answer == "n":
+            print(f"\n{ct.prLightPurple}Selecting another album...{ct.endc}")
+            break
+        elif answer == "quit":
+            exit()
+        else:
+            print(
+                f"\n{ct.prRed}I didn't understood that. Please try again{ct.endc}")
+
 
 # Authorization
 conf = tk.config_from_file('conf.txt')
@@ -14,20 +49,13 @@ albums = {}
 
 # Checking if the user has any saved albums
 if albums_number == 0:
-    print("You don't have any saved albums. Aborting!")
+    print(f"\n{ct.prRed}You don't have any saved albums. Aborting!{ct.endc}")
     sleep(2)
-else:
-    print(f"You have a total of {albums_number} saved albums. Now selecting one randomly")
-    # Getting random number and selecting the album
-    random_number = random.randint(0, albums_number-1)
-    selected_album = spotify.saved_albums(
-        limit=1, offset=random_number).items[0].album
+    exit()
 
-    # Playing the selected album
-    print(
-        f"Album has been selected! Now playing '{selected_album.name}' by {selected_album.artists[0].name} on Spotify")
+print(
+    f"\nYou have a total of {ct.prGreen}{albums_number}{ct.endc} saved albums. Now selecting one randomly")
 
-    selected_album_uri = tk.to_uri('album', selected_album.id)
-    spotify.playback_start_context(selected_album_uri)
-    
-    sleep(3)
+# Using function to choose random album. For more info look at the function
+while True:
+    choosingRandomAlbum(albums_number)
