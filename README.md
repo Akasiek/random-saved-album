@@ -1,9 +1,6 @@
-
-
 # randomSavedAlbum
 
 > selecting one saved album and playing it
-
 
 [![Tekore](https://img.shields.io/badge/tekore-v2.1.1-blue)](https://pypi.org/project/tekore/)
 
@@ -24,7 +21,7 @@
 - Open `randomSavedAlbum.py` with Python
 - Authorize this app with your Spotify Account
 - Copy the URL you were redirected to and paste it to app window
-- Wait for the result (it should take a couple of seconds based on your saved albums library size)
+- Wait for the result or choose another album
 - Listen to one of your saved album chosen randomly
 
 ## License
