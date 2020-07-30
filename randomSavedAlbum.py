@@ -10,7 +10,7 @@ def choosingRandomAlbum(albums_number):
     selected_album = spotify.saved_albums(
         limit=1, offset=random_number).items[0].album
 
-    # Loop for
+    # Looping the menu
     while True:
         answer = input(
             f'''
@@ -20,10 +20,12 @@ If you want to abort type {ct.prRed}"quit"{ct.endc}
 ''')
         answer = answer.lower()
 
+        # Menu
         if answer == "y":
             print(
                 f'\nNow playing {ct.prGreen}"{selected_album.name}"{ct.endc} by {ct.prGreen}{selected_album.artists[0].name}{ct.endc} on Spotify?')
 
+            # Playing the selected album
             spotify.playback_start_context(
                 tk.to_uri('album', selected_album.id))
             exit()
